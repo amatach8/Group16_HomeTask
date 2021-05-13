@@ -212,6 +212,129 @@
 			"response": []
 		},
 		{
+			"name": "object_info_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name from the body is equel the variable from the environment\", () => { \r",
+							"    var jsonData = pm.response.json();\r",
+							"  pm.expect(pm.environment.get('name')).to.eql(jsonData.name);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid age\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.age).to.eql(50);\r",
+							"});\r",
+							"\r",
+							"var query = {};\r",
+							"pm.request.url.query.all().forEach((param) => { query[param.key] = param.value});\r",
+							"console.log(query.salary)\r",
+							"\r",
+							"pm.test('Salary coefficient for 1_5_year', function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(+jsonData.salary[1]).to.eql(query.salary*2);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/object_info_4?age=50&name=Li&salary=1000",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "50"
+						},
+						{
+							"key": "name",
+							"value": "Li"
+						},
+						{
+							"key": "salary",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user_info_1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Name from the body is equel the variable from the environment\", () => { \r",
+							"    var jsonData = pm.response.json();\r",
+							"  pm.expect(pm.environment.get('name')).to.eql(jsonData.name);\r",
+							"});\r",
+							"\r",
+							"pm.test('Weight coefficient for daily_food', function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.daily_food).to.eql(pm.request.body.formdata.get(\"weight\")*0.012);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "weight",
+							"value": "50",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Li",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/user_info_1",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user_info_1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "user_info_2",
 			"event": [
 				{
